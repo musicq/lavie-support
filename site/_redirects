@@ -1,0 +1,5 @@
+# Old GitHub Pages paths, still linked from shipped builds
+/privacy-policy.html  /privacy  301
+/privacy-policy       /privacy  301
+/terms-of-use.html    /terms    301
+/terms-of-use         /terms    301
