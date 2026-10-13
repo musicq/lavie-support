@@ -1,17 +1,25 @@
 // POST /api/statement: reads one chunk of a bank statement with DeepSeek for the Lavie app.
 //
 // The DeepSeek key lives only here (the DEEPSEEK_API_KEY secret). The app sends the
-// statement text and the person's categories; the prompt, model and output limit are
-// fixed below, so this can't be used as a general-purpose DeepSeek endpoint.
-// Requests are counted in D1 per (hashed) IP per hour and per day, plus a daily cap
-// for everyone together, which bounds the bill whatever happens.
+// statement text and the person's categories with a session token from /api/session; the
+// prompt, model and output limit are fixed below, so this can't be used as a general-purpose
+// DeepSeek endpoint. Each call's real cost is added to the person's day; a session stops at its
+// budget. Requests are also counted per (hashed) IP and for everyone per day, which bounds the
+// bill whatever happens.
+
+import { markTrialUsed } from "../../lib/apple.js";
+import { costMicro, overLimit, reply, session, today } from "../../lib/proxy.js";
 
 const MODEL = "deepseek-flash";
 const MAX_TEXT = 12_000; // UTF-16 units; the app sends chunks of 9,000 characters.
 const MAX_CATEGORIES = 80;
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost({ request, env, waitUntil }) {
   if (!env.DEEPSEEK_API_KEY || !env.DB) return reply(503, { error: "unavailable" });
+
+  const current = await session(request, env);
+  if (!current) return reply(401, { error: "session" });
+  if (current.spent_micro >= current.budget_micro) return reply(429, { error: "daily_limit" });
 
   let input;
   try {
@@ -20,7 +28,7 @@ export async function onRequestPost({ request, env }) {
     return reply(400, { error: "bad_request", detail: String(error.message || error) });
   }
 
-  const limited = await overLimit(request, env);
+  const limited = await overLimit(request, env, "ip", Number(env.LIMIT_IP_HOUR || 40), Number(env.LIMIT_IP_DAY || 150), Number(env.LIMIT_ALL_DAY || 4000));
   if (limited) return reply(429, { error: "busy", scope: limited });
 
   const user = input.parts > 1 ? `Part ${input.part} of ${input.parts} of the same statement:\n\n${input.text}` : input.text;
@@ -49,6 +57,7 @@ export async function onRequestPost({ request, env }) {
   if (!response.ok) return reply(502, { error: "upstream", status: response.status });
 
   const envelope = await response.json().catch(() => null);
+  waitUntil(record(env, current, costMicro(envelope?.usage)));
   const content = envelope?.choices?.[0]?.message?.content;
   let parsed;
   try {
@@ -102,39 +111,26 @@ Do not list opening or closing balances, totals, subtotals, minimum payments, cr
 Never invent transactions. If there are none, reply {"transactions":[]}.`;
 }
 
-/// Counts this request and says which limit it went over, if any.
-async function overLimit(request, env) {
-  const now = new Date();
-  const day = now.toISOString().slice(0, 10);
-  const hour = now.toISOString().slice(0, 13);
-  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
-  // Only a hash of the address, salted per day, is kept; counts older than two days are removed.
-  const who = await hash(`${env.IP_SALT || "lavie"}|${day}|${ip}`);
-  const statement = env.DB.prepare(
-    "INSERT INTO usage (bucket, day, count) VALUES (?1, ?2, 1) ON CONFLICT(bucket) DO UPDATE SET count = count + 1 RETURNING count"
-  );
-  const count = (result) => result.results?.[0]?.count ?? 0;
-  const expired = new Date(now.getTime() - 2 * 86_400_000).toISOString().slice(0, 10);
-  const [perHour, perDay] = await env.DB.batch([
-    statement.bind(`ip:${who}:${hour}`, day),
-    statement.bind(`ip:${who}:${day}`, day),
-    env.DB.prepare("DELETE FROM usage WHERE day < ?1").bind(expired),
+/// Adds the call's cost to the session, the person's day and their total; the first paid-for
+/// chunk of a free try uses up this device's free import.
+async function record(env, current, cost) {
+  const now = new Date().toISOString();
+  await env.DB.batch([
+    env.DB.prepare("UPDATE sessions SET spent_micro = spent_micro + ?2, chunks = chunks + 1 WHERE token = ?1").bind(current.token, cost),
+    env.DB.prepare(
+      `INSERT INTO usage_daily (user_id, day, cost_micro, chunks) VALUES (?1, ?2, ?3, 1)
+       ON CONFLICT(user_id, day) DO UPDATE SET cost_micro = cost_micro + ?3, chunks = chunks + 1`
+    ).bind(current.user_id, today(), cost),
+    env.DB.prepare("UPDATE users SET cost_micro = cost_micro + ?2, chunks = chunks + 1, last_seen = ?3 WHERE id = ?1").bind(current.user_id, cost, now),
   ]);
-  if (count(perHour) > Number(env.LIMIT_IP_HOUR || 40)) return "hour";
-  if (count(perDay) > Number(env.LIMIT_IP_DAY || 150)) return "day";
-  // Only requests that pass their own limits count toward everyone's.
-  const all = await statement.bind(`all:${day}`, day).run();
-  return count(all) > Number(env.LIMIT_ALL_DAY || 4000) ? "all" : null;
-}
-
-async function hash(text) {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-  return [...new Uint8Array(digest).slice(0, 12)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
-}
-
-function reply(status, body) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
-  });
+  if (current.tier === "free" && current.device_token) {
+    const claimed = await env.DB.prepare("UPDATE sessions SET trial_marked = 1 WHERE token = ?1 AND trial_marked = 0 RETURNING token").bind(current.token).first();
+    if (claimed) {
+      try {
+        await markTrialUsed(env, current.device_token, current.sandbox === 1);
+      } catch (error) {
+        console.log(JSON.stringify({ event: "trial_mark", ok: false, error: String(error.message || error) }));
+      }
+    }
+  }
 }

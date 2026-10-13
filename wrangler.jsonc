@@ -3,7 +3,8 @@
   "name": "lavie-site",
   "pages_build_output_dir": "./site",
   "compatibility_date": "2026-06-24",
-  // /api/statement request counts. Secrets (set with `wrangler pages secret put`): DEEPSEEK_API_KEY, IP_SALT.
+  // /api request counts, App Attest keys, users and their daily AI cost.
+  // Secrets (`wrangler pages secret put`, then redeploy): DEEPSEEK_API_KEY, IP_SALT, DEVICECHECK_KEY.
   "d1_databases": [
     {
       "binding": "DB",
@@ -12,8 +13,18 @@
       "migrations_dir": "migrations"
     }
   ],
-  // Statement chunks (up to 9,000 characters each; a long statement is up to 14).
   "vars": {
+    "APPLE_TEAM_ID": "QASBQ2U5K7",
+    "BUNDLE_ID": "app.lifebar",
+    "DEVICECHECK_KEY_ID": "3N7NL7YKLX",
+    // "1" refuses requests that fail App Attest or DeviceCheck; "0" only logs them.
+    "ENFORCE": "0",
+    // Daily AI budget per person, in millionths of a dollar (50000 = $0.05).
+    // The first statement of a day always fits; a free try is one statement per device.
+    "CAP_PAID_MICRO": "50000",
+    "CAP_TRIAL_MICRO": "20000",
+    "CAP_FREE_MICRO": "50000",
+    // Statement chunks per address (up to 9,000 characters each; a long statement is up to 14), and for everyone.
     "LIMIT_IP_HOUR": "40",
     "LIMIT_IP_DAY": "150",
     "LIMIT_ALL_DAY": "4000"
