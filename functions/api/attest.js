@@ -1,5 +1,5 @@
 // POST /api/attest {keyId, attestation, challenge}: registers a new App Attest key for this install.
-// Until ENFORCE is "1" a key that fails the check is only logged, so a bug here can't stop imports.
+// Unless ENFORCE_ATTEST is "1", a key that fails the check is only logged.
 
 import { verifyAttestation } from "../../lib/apple.js";
 import { appId, enforced, json, overLimit, reply, useChallenge } from "../../lib/proxy.js";
@@ -26,6 +26,6 @@ export async function onRequestPost({ request, env }) {
     return reply(200, { stored: true });
   } catch (error) {
     console.log(JSON.stringify({ event: "attest", ok: false, error: String(error.message || error) }));
-    return enforced(env) ? reply(403, { error: "unverified" }) : reply(200, { stored: false });
+    return enforced(env, "attest") ? reply(403, { error: "unverified" }) : reply(200, { stored: false });
   }
 }

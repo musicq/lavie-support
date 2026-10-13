@@ -17,8 +17,10 @@
     "APPLE_TEAM_ID": "QASBQ2U5K7",
     "BUNDLE_ID": "app.lifebar",
     "DEVICECHECK_KEY_ID": "3N7NL7YKLX",
-    // "1" refuses requests that fail App Attest or DeviceCheck; "0" only logs them.
-    "ENFORCE": "0",
+    // "1" refuses requests that fail the check; "0" only logs them. Both passed on a real iPhone
+    // (2.0 (33), 2026-10-13); either can be set back to "0" alone if Apple's service misbehaves.
+    "ENFORCE_ATTEST": "1",
+    "ENFORCE_DEVICE": "1",
     // Daily AI budget per person, in millionths of a dollar (50000 = $0.05).
     // The first statement of a day always fits.
     "CAP_PAID_MICRO": "50000",

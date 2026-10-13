@@ -3,45 +3,381 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lavie</title>
-  <meta name="description" content="Lavie answers one question: am I okay until payday?">
+  <title>Lavie: Am I okay until payday?</title>
+  <meta name="description" content="Lavie answers one question with one number: Free to spend until payday, built from your payday, your bills and your goals.">
   <link rel="canonical" href="https://lifebar.app/">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icon.svg">
-  <link rel="stylesheet" href="/style.css">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d0b0c" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Lavie: Am I okay until payday?">
+  <meta property="og:description" content="One number: Free to spend until payday.">
+  <meta property="og:image" content="https://lifebar.app/home/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="apple-itunes-app" content="app-id=6761326834">
+  <link rel="stylesheet" href="/home/home.css">
 </head>
 <body>
-  <div class="page">
-    <header class="nav">
+  <header class="hnav" id="top">
+    <div class="wrap">
       <a class="brand" href="/"><img src="/icon.svg" alt="">Lavie</a>
-      <nav class="nav-links">
+      <nav>
+        <a class="opt" href="#how">How it works</a>
+        <a class="opt" href="#plus">Lavie Plus</a>
         <a href="/help">Help</a>
-        <a href="/support">Support</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/terms">Terms</a>
+        <a class="pill sm" href="https://apps.apple.com/app/id6761326834">Download</a>
       </nav>
-    </header>
-    <main>
-      <section class="hero">
-        <img src="/icon.svg" alt="Lavie app icon">
-        <h1>Am I okay until payday?</h1>
-        <p class="lede">Lavie answers with one number: <span class="number">Free to spend</span>, built from your payday, your income, your bills and your goals.</p>
-      </section>
-      <ul class="points">
-        <li><strong>One number.</strong> What's left after the bills still due and the money you set aside for goals.</li>
-        <li><strong>Your payday, not the calendar.</strong> Every cycle runs from one payday to the next.</li>
-        <li><strong>Goals come first.</strong> Lavie sets money aside each payday so goals don't depend on what's left over.</li>
-        <li><strong>Private by default.</strong> Your numbers stay on your iPhone, or in your own iCloud if you turn on sync.</li>
-      </ul>
-      <div class="card">
-        <h2>Need help?</h2>
-        <p>Answers to common questions are on the <a href="/support">support page</a>, or write to <a href="mailto:support@lifebar.app">support@lifebar.app</a>.</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-in">
+        <p class="eyebrow">Lavie for iPhone</p>
+        <h1>Am I okay<br>until payday?</h1>
+        <p class="lede">Lavie answers with one number: <b>Free to spend</b>. It's built from your payday, the bills still to come and the money you set aside for your goals.</p>
+        <div class="cta">
+          <a class="pill lg" href="https://apps.apple.com/app/id6761326834">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a1.5 1.5 0 0 1 1.5 1.5v9.38l2.94-2.94a1.5 1.5 0 1 1 2.12 2.12l-5.5 5.5a1.5 1.5 0 0 1-2.12 0l-5.5-5.5a1.5 1.5 0 1 1 2.12-2.12l2.94 2.94V4.5A1.5 1.5 0 0 1 12 3Z"/></svg>
+            Download on the App Store
+          </a>
+          <small>Free · Lavie Plus with a 14-day free trial</small>
+        </div>
       </div>
-    </main>
-    <footer class="footer">
-      <p><a href="/support">Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></p>
+      <div class="stage" id="stage">
+        <div class="orb blush" aria-hidden="true"></div>
+        <div class="orb apricot" aria-hidden="true"></div>
+        <div class="phone">
+          <div class="screen">
+            <picture>
+              <source srcset="/home/now-dark.webp" media="(prefers-color-scheme: dark)">
+              <img src="/home/now-light.webp" width="720" height="1565" alt="Lavie's Now screen: $1,922 free to spend until Friday, October 30, about $113 a day.">
+            </picture>
+          </div>
+        </div>
+        <div class="chip c1" aria-hidden="true">
+          <div class="dot tint-cal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></div>
+          <div><span>Payday</span><strong>Fri, Oct 30</strong></div>
+        </div>
+        <div class="chip c2" aria-hidden="true">
+          <div class="dot tint-held"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1Z"/></svg></div>
+          <div><span>Set aside for goals</span><strong>$1,100</strong></div>
+        </div>
+        <div class="chip c3" aria-hidden="true">
+          <div class="dot tint-bills"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h12v17l-3-2-3 2-3-2-3 2Z"/><path d="M9 8.5h6M9 12h6"/></svg></div>
+          <div><span>Bills still due</span><strong>$389</strong></div>
+        </div>
+        <div class="chip c4" aria-hidden="true">
+          <div class="dot tint-free"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></div>
+          <div><span>Until payday</span><strong>≈ $113 a day</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The question -->
+    <section class="question">
+      <div class="wrap">
+        <p id="words">Most money apps tell you what you spent last month. Lavie tells you <span class="em">what's free right now,</span> after the bills that haven't come out yet and the money you've promised your goals.</p>
+      </div>
+    </section>
+
+    <!-- The number -->
+    <section class="sec center" id="how" style="padding-top: 40px">
+      <div class="wrap">
+        <p class="kicker rv">One number</p>
+        <h2 class="h2 rv d1">Simple math.<br><span class="muted">Done for you, every day.</span></h2>
+        <div class="formula rv d2" id="formula">
+          <div class="term"><span>Pay this cycle</span><strong class="count" data-to="5800">$5,800</strong></div>
+          <div class="op">−</div>
+          <div class="term"><span><i class="t-spent"></i>Spent so far</span><strong class="count" data-to="2389">$2,389</strong></div>
+          <div class="op wrapbreak">−</div>
+          <div class="term"><span><i class="t-bills"></i>Bills still due</span><strong class="count" data-to="389">$389</strong></div>
+          <div class="op">−</div>
+          <div class="term"><span><i class="t-held"></i>Set aside</span><strong class="count" data-to="1100">$1,100</strong></div>
+          <div class="op">=</div>
+          <div class="term result"><span><i class="t-free"></i>Free to spend</span><strong class="count" data-to="1922">$1,922</strong></div>
+        </div>
+        <div class="bar rv" id="bar" aria-hidden="true">
+          <i class="t-spent" style="--w: calc((100% - 18px) * .412)"></i>
+          <i class="t-bills" style="--w: calc((100% - 18px) * .067)"></i>
+          <i class="t-held" style="--w: calc((100% - 18px) * .19)"></i>
+          <i class="t-free" style="--w: calc((100% - 18px) * .331)"></i>
+        </div>
+        <p class="bar-note rv">The same bar sits at the top of the app, so you can see your whole cycle at a glance.</p>
+      </div>
+    </section>
+
+    <!-- Sticky story -->
+    <section class="wrap story" id="payday">
+      <div class="pin" aria-hidden="true">
+        <div class="phone">
+          <div class="screen" id="storyScreen">
+            <picture><source srcset="/home/now-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/now-light.webp" alt="" loading="lazy" width="720" height="1565"></picture>
+            <picture class="off"><source srcset="/home/now-2-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/now-2-light.webp" alt="" loading="lazy" width="720" height="1565"></picture>
+            <picture class="off"><source srcset="/home/afford-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/afford-light.webp" alt="" loading="lazy" width="720" height="1565"></picture>
+            <picture class="off"><source srcset="/home/quickadd-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/quickadd-light.webp" alt="" loading="lazy" width="720" height="1565"></picture>
+          </div>
+        </div>
+      </div>
+      <div class="steps">
+        <article class="step on" data-i="0">
+          <p class="num">01</p>
+          <h3>Your payday,<br>not the calendar.</h3>
+          <p class="body">Every cycle runs from one payday to the next. If payday falls on a weekend, Lavie moves it to the day the money really lands, and says so.</p>
+          <div class="phone inline"><div class="screen"><picture><source srcset="/home/now-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/now-light.webp" alt="The Now screen with the cycle bar and the days until payday." loading="lazy" width="720" height="1565"></picture></div></div>
+        </article>
+        <article class="step" data-i="1">
+          <p class="num">02</p>
+          <h3>Bills are counted<br>before they're due.</h3>
+          <p class="body">Rent, your phone, the gym: anything still to come this cycle is already taken out of your number. A big bill day is never a surprise.</p>
+          <p class="note"><i>↑</i>You're $66.67 ahead of your usual pace this cycle.</p>
+          <div class="phone inline"><div class="screen"><picture><source srcset="/home/now-2-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/now-2-light.webp" alt="Coming up: Gym, Electricity, Netflix and Internet, with dates and amounts." loading="lazy" width="720" height="1565"></picture></div></div>
+        </article>
+        <article class="step" data-i="2">
+          <p class="num">03</p>
+          <h3>Can I afford it?<br>Ask before you buy.</h3>
+          <p class="body">Type the price and get a straight answer: what you'd still have free until payday, and how much that leaves for each day.</p>
+          <div class="phone inline"><div class="screen"><picture><source srcset="/home/afford-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/afford-light.webp" alt="Can I afford it? $240: Yes, you'd still have $1,682 free, about $99 a day." loading="lazy" width="720" height="1565"></picture></div></div>
+        </article>
+        <article class="step" data-i="3">
+          <p class="num">04</p>
+          <h3>Log it in<br>a second.</h3>
+          <p class="body">Tap +, type the amount, pick a name you've used before. Lavie remembers that “Lunch” is food, so you never sort anything by hand.</p>
+          <div class="phone inline"><div class="screen"><picture><source srcset="/home/quickadd-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/quickadd-light.webp" alt="Quick add with $12.50 for Lunch, filed under Food." loading="lazy" width="720" height="1565"></picture></div></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Goals -->
+    <section class="sec" id="goals">
+      <div class="wrap duo">
+        <div>
+          <p class="kicker rv">Goals</p>
+          <h2 class="h2 rv d1">Goals come first.</h2>
+          <p class="body rv d2" style="margin-top: 22px">Lavie sets money aside every payday, before anything counts as free to spend. So the trip to Japan doesn't depend on what's left over at the end of the month.</p>
+          <div class="facts rv d3">
+            <div class="fact"><strong class="count" data-to="600">$600</strong><span>set aside each payday for Japan</span></div>
+            <div class="fact"><strong>Dec 2026</strong><span>when it's paid for, on track</span></div>
+          </div>
+        </div>
+        <div class="visual rv d1">
+          <div class="phone">
+            <div class="screen"><picture><source srcset="/home/plan-goals-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/plan-goals-light.webp" alt="Plan: goals, with Trip to Japan and Emergency fund on track." loading="lazy" width="720" height="1565"></picture></div>
+          </div>
+          <div class="goal-card rv d3">
+            <div class="row">Trip to Japan <em>On track</em></div>
+            <div class="amt">$1,800 <small>of $3,600</small></div>
+            <div class="track"><i style="--w: 50%"></i></div>
+            <p class="sub">$600 every payday · by Dec 2026</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="sec" id="insights" style="padding-top: 60px">
+      <div class="wrap gallery-head">
+        <div>
+          <p class="kicker rv">Insights</p>
+          <h2 class="h2 rv d1">Know where it went.<br><span class="muted">Fairly compared.</span></h2>
+        </div>
+        <div class="arrows rv">
+          <button type="button" id="prev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" id="next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+      <div class="gallery" id="gallery">
+        <figure class="slide rv">
+          <div class="phone"><div class="screen"><picture><source srcset="/home/insights-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/insights-light.webp" alt="Insights comparing this cycle with the same stretch of earlier ones." loading="lazy" width="720" height="1565"></picture></div></div>
+          <h4>A fair comparison</h4>
+          <p>A cycle in progress is compared with the same stretch of the last one, never with a whole finished month.</p>
+        </figure>
+        <figure class="slide rv d1">
+          <div class="phone"><div class="screen"><picture><source srcset="/home/insights-2-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/insights-2-light.webp" alt="Where it went: spending by category in a ring chart." loading="lazy" width="720" height="1565"></picture></div></div>
+          <h4>Where it went</h4>
+          <p>Every category in one ring. Press and slide on any chart to look closer.</p>
+        </figure>
+        <figure class="slide rv d2">
+          <div class="phone"><div class="screen"><picture><source srcset="/home/monthcard-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/monthcard-light.webp" alt="A month card for September 2026: $2,179 left over." loading="lazy" width="720" height="1565"></picture></div></div>
+          <h4>Month cards</h4>
+          <p>On the last day of each month, a little card: what came in, what went out, what you kept. Save it or share it.</p>
+        </figure>
+        <figure class="slide rv d3">
+          <div class="phone"><div class="screen"><picture><source srcset="/home/activity-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/activity-light.webp" alt="Activity for October: came in, went out, left over, and every entry by day." loading="lazy" width="720" height="1565"></picture></div></div>
+          <h4>Every entry, by day</h4>
+          <p>Today, Yesterday, then the days of the week. Search, filter, or swipe one away.</p>
+        </figure>
+        <figure class="slide rv d4">
+          <div class="phone"><div class="screen"><picture><source srcset="/home/worth-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/worth-light.webp" alt="Net worth with cash, investments and debts over the past year." loading="lazy" width="720" height="1565"></picture></div></div>
+          <h4>Net worth</h4>
+          <p>Cash, investments and debts, month by month, worked out from what you already log.</p>
+        </figure>
+        <figure class="slide rv d4">
+          <div class="phone"><div class="screen"><picture><source srcset="/home/plan-bills-dark.webp" media="(prefers-color-scheme: dark)"><img src="/home/plan-bills-light.webp" alt="Plan: income, bills and goals for each month." loading="lazy" width="720" height="1565"></picture></div></div>
+          <h4>One plan</h4>
+          <p>Your pay, your bills and your goals in one place, with what each costs you a month.</p>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Less typing -->
+    <section class="sec" id="less" style="padding-top: 40px">
+      <div class="wrap">
+        <p class="kicker rv">Less typing</p>
+        <h2 class="h2 rv d1">Keeps itself up to date.<br><span class="muted">Mostly.</span></h2>
+        <div class="bento">
+          <div class="tile wide rv">
+            <h3>Import a bank statement.</h3>
+            <p>Drop in a PDF, a CSV or a photo of your statement. Lavie reads it, files each line under the right category and skips what you've already logged.</p>
+            <a class="more" href="/help/import">How importing works ›</a>
+            <div class="art receipt" aria-hidden="true">
+              <div><span class="tok food"><svg viewBox="0 0 24 24"><path d="M4 5h2l2 10h10l2-7H7"/><circle cx="9.5" cy="19" r="1.3"/><circle cx="16.5" cy="19" r="1.3"/></svg></span>Groceries<span class="tag">Oct 12</span><b>$64</b></div>
+              <div><span class="tok ride"><svg viewBox="0 0 24 24"><path d="M5 16v-4l2-5h10l2 5v4ZM5 16v2M19 16v2M5 12h14"/><circle cx="8.5" cy="14" r=".6"/><circle cx="15.5" cy="14" r=".6"/></svg></span>Uber<span class="tag">Oct 12</span><b>$14</b></div>
+              <div><span class="tok food"><svg viewBox="0 0 24 24"><path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5ZM16 10.5h1.5a2.5 2.5 0 0 1 0 5H16M8 3.5v2.5M11.5 3.5v2.5"/></svg></span>Coffee<span class="tag">Oct 13</span><b>$5</b></div>
+              <div class="dup"><span class="tok done"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Rent<span class="tag">already logged</span><b>$1,850</b></div>
+            </div>
+          </div>
+          <div class="tile rv d1">
+            <div class="icon-badge tint-free"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.6 5.4 3.6 8.5s-1.1 5.9-3.6 8.5M12 3.5C9.5 6.1 8.4 8.9 8.4 12s1.1 5.9 3.6 8.5"/></svg></div>
+            <h3>Any currency.</h3>
+            <p>A subscription in euros, school fees in yen. Lavie converts at today's rate, so your number stays in yours.</p>
+            <div class="art fx" aria-hidden="true"><span>$</span><span>€</span><span>£</span><span>¥</span><span>S$</span></div>
+          </div>
+          <div class="tile half rv">
+            <h3>Your number,<br>on your Home Screen.</h3>
+            <p>Widgets for the Home Screen and the Lock Screen, so you know before you even open the app.</p>
+            <div class="art widgets" aria-hidden="true">
+              <div class="widget medium">
+                <div class="free">
+                  <b>Free to spend</b>
+                  <strong>$1,922</strong>
+                  <small>until Fri, Oct 30</small>
+                  <div class="runway"><i class="t-spent" style="flex:41"></i><i class="t-bills" style="flex:7"></i><i class="t-held" style="flex:19"></i><i class="t-free" style="flex:33"></i></div>
+                  <p class="pace">≈ $113 a day</p>
+                </div>
+                <div class="breakdown">
+                  <div><i class="t-spent"></i>Spent<b>$2,389</b></div>
+                  <div><i class="t-bills"></i>Bills due<b>$389</b></div>
+                  <div><i class="t-held"></i>Set aside<b>$1,100</b></div>
+                </div>
+              </div>
+              <div class="lock-screen"><div class="lock-widget"><b>Free to spend</b><strong>$1,922</strong><small>until Fri, Oct 30</small></div></div>
+            </div>
+          </div>
+          <div class="tile half rv d1">
+            <div class="icon-badge tint-held"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6Z"/></svg></div>
+            <h3>Logs by itself.</h3>
+            <p>Pay with Apple Pay, or get a text from your bank, and one shortcut you add once puts the purchase in Lavie for you.</p>
+            <a class="more" href="/help/automation">Set up automatic logging ›</a>
+            <div class="art" aria-hidden="true">
+              <div class="logged receipt"><div><span class="tok food"><svg viewBox="0 0 24 24"><path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5ZM16 10.5h1.5a2.5 2.5 0 0 1 0 5H16M8 3.5v2.5M11.5 3.5v2.5"/></svg></span>Coffee<span class="tag">logged just now</span><b>$5</b></div></div>
+              <div class="flow"><span>Apple Pay</span><em>→</em><span>Shortcut</span><em>→</em><span>Lavie</span></div>
+            </div>
+          </div>
+          <div class="tile rv">
+            <div class="icon-badge tint-bills"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16.5V11a6 6 0 1 1 12 0v5.5l1.5 2h-15Z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg></div>
+            <h3>A heads-up, not a nag.</h3>
+            <p>The evening before each bill, a short note. Not using it any more? Stop it before it's charged.</p>
+            <div class="art notif" aria-hidden="true">
+              <img src="/icon.svg" alt="">
+              <div><p><b>Lavie</b><small>6:00 PM</small></p><strong>Tomorrow: Netflix · $16</strong><span>Still using it? If not, open Lavie and slide to stop it before it's charged.</span></div>
+            </div>
+          </div>
+          <div class="tile rv d1">
+            <div class="icon-badge tint-cal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18.5a4.5 4.5 0 0 1-.6-9A6 6 0 0 1 18 9.6a4.5 4.5 0 0 1-1 8.9Z"/></svg></div>
+            <h3>On all your devices.</h3>
+            <p>Turn on iCloud sync and your iPhone and iPad keep the same number.</p>
+            <div class="art devices" aria-hidden="true">
+              <div class="dev pad"><b>Free to spend</b><strong>$1,922</strong></div>
+              <div class="dev phn"><b>Free to spend</b><strong>$1,922</strong></div>
+            </div>
+          </div>
+          <div class="tile rv d2">
+            <div class="icon-badge tint-free"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h8M8 3v2M10.5 5c-.8 4-3 7-6.5 9M6 9.5c1.2 2 3 3.6 5 4.5M13 21l4-9 4 9M14.5 18h5"/></svg></div>
+            <h3>In your language.</h3>
+            <p>English, 简体中文, 繁體中文, 日本語, Español, Français, Deutsch and Português.</p>
+            <div class="art langs" aria-hidden="true"><span lang="zh-Hans">可以花的钱</span><span lang="ja">自由に使えるお金</span><span lang="fr">Reste à dépenser</span><span lang="de">Frei verfügbar</span><span lang="es">Libre para gastar</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy -->
+    <section class="sec privacy">
+      <div class="wrap">
+        <div class="lock rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10.5" rx="3"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.6" r="1.3" fill="currentColor" stroke="none"/></svg></div>
+        <h2 class="h2 rv d1">Your numbers stay yours.</h2>
+        <p class="body rv d2" style="margin: 20px auto 0">No account to make, no bank to connect, no analytics. Your ledger lives on your iPhone, or in your own iCloud if you turn on sync.</p>
+        <div class="promises">
+          <div class="rv"><b>No sign-up</b><p>Open the app and set your payday. That's the whole setup.</p></div>
+          <div class="rv d1"><b>No bank login</b><p>Lavie never asks for your bank password. You log, or you import a file you choose.</p></div>
+          <div class="rv d2"><b>Asks first</b><p>Statement import asks before anything leaves your phone, and sends only the text. <a href="/privacy">Privacy policy</a></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plus -->
+    <section class="sec center" id="plus" style="padding-top: 60px">
+      <div class="wrap">
+        <p class="kicker rv">Lavie Plus</p>
+        <h2 class="h2 rv d1">Free to start.<br><span class="muted">Plus when you want more.</span></h2>
+        <div class="plans">
+          <div class="plan rv">
+            <h3>Lavie</h3>
+            <p>Free</p>
+            <ul>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Free to spend, every day, with the full breakdown</li>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Pay, bills and payday, any schedule</li>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>One running goal</li>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Three “Can I afford it?” checks each cycle</li>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Insights for this period and the three before it</li>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Try statement import</li>
+            </ul>
+          </div>
+          <div class="plan plus rv d1">
+            <h3>Lavie Plus <em>14 days free</em></h3>
+            <p>Everything in Lavie, and</p>
+            <ul>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Widgets on the Home Screen and Lock Screen</li>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Look-ahead: your next three paydays</li>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>A review at the end of every cycle</li>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Unlimited goals and currencies</li>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>iCloud sync across your devices</li>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Full Insights history and the year view</li>
+              <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Unlimited checks and statement imports</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Finale -->
+    <section class="finale">
+      <div class="wrap">
+        <img class="app rv" src="/icon.svg" alt="Lavie app icon">
+        <h2 class="h2 rv d1">Know your number.</h2>
+        <p class="body rv d2" style="margin-top: 18px">Free on the App Store, for iPhone.</p>
+        <div class="cta rv d3">
+          <a class="pill lg" href="https://apps.apple.com/app/id6761326834">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a1.5 1.5 0 0 1 1.5 1.5v9.38l2.94-2.94a1.5 1.5 0 1 1 2.12 2.12l-5.5 5.5a1.5 1.5 0 0 1-2.12 0l-5.5-5.5a1.5 1.5 0 1 1 2.12-2.12l2.94 2.94V4.5A1.5 1.5 0 0 1 12 3Z"/></svg>
+            Download on the App Store
+          </a>
+          <small>Questions? Write to <a href="mailto:support@lifebar.app">support@lifebar.app</a></small>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p><a href="/help">Help</a><a href="/support">Support</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a></p>
       <p>© 2026 Kui Liang. All rights reserved.</p>
-    </footer>
-  </div>
+    </div>
+  </footer>
+
+  <script src="/home/home.js" defer></script>
 </body>
 </html>

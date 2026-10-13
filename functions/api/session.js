@@ -9,7 +9,7 @@
 //   line up), counted in DeviceCheck's two bits so a reinstall doesn't reset it. Reading one bank
 //   alert (purpose "alert") only spends from the daily budget.
 // - Each person has a daily AI budget; a session gets what is left of it (at least one statement).
-// Until ENFORCE is "1", failed App Attest and DeviceCheck checks are logged but not refused.
+// ENFORCE_ATTEST and ENFORCE_DEVICE turn refusing on for each check; with "0" a failure is only logged.
 
 import { freeImportsThisMonth, verifyAssertion, verifyTransaction } from "../../lib/apple.js";
 import { PRODUCTS, addressHash, appId, caps, enforced, json, overLimit, reply, today, token, useChallenge } from "../../lib/proxy.js";
@@ -61,7 +61,7 @@ export async function onRequestPost({ request, env }) {
     }
   } else checks.attest = "missing";
   const attested = checks.attest === "ok";
-  if (enforced(env) && !attested) return finish(403, { error: "unverified" }, checks);
+  if (enforced(env, "attest") && !attested) return finish(403, { error: "unverified" }, checks);
 
   // 2. Who it is.
   let user, tier, product = null, environment = null, deviceToken = null, freeUsed = null;
@@ -90,8 +90,8 @@ export async function onRequestPost({ request, env }) {
           checks.device = String(error.message || error);
         }
       } else checks.device = "missing";
-      if (enforced(env) && freeUsed === null) return finish(403, { error: "unverified" }, checks);
-      if (enforced(env) && freeUsed >= Number(env.FREE_IMPORTS_PER_MONTH || 2)) return finish(402, { error: "trial_used" }, checks);
+      if (enforced(env, "device") && freeUsed === null) return finish(403, { error: "unverified" }, checks);
+      if (enforced(env, "device") && freeUsed >= Number(env.FREE_IMPORTS_PER_MONTH || 2)) return finish(402, { error: "trial_used" }, checks);
     }
   }
 
