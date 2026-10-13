@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Import bank records · Lavie Help</title>
+  <meta name="description" content="Where to find this month's records in your bank or wallet app, what Lavie can read, and zips with a password.">
+  <link rel="canonical" href="https://lifebar.app/help/import">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.svg">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="page">
+    <header class="nav">
+      <a class="brand" href="/"><img src="/icon.svg" alt="">Lavie</a>
+      <nav class="nav-links">
+        <a href="/help" aria-current="page">Help</a>
+        <a href="/support">Support</a>
+        <a href="/privacy">Privacy</a>
+      </nav>
+    </header>
+    <main>
+      <h1>Import bank records</h1>
+      <p class="lede">Bring a file from your bank or wallet; Lavie finds the transactions and shows you the list before anything is added.</p>
+
+      <div class="summary">
+        <p>Statements come once a month, but the transaction list in your bank's app can be exported any day. Lavie skips what it already has, including your repeating bills, so nothing is counted twice.</p>
+      </div>
+
+      <h2>What Lavie reads</h2>
+      <ul>
+        <li><strong>PDF</strong> statements, including scanned ones.</li>
+        <li><strong>CSV</strong> and <strong>Excel (.xlsx)</strong> exports, in English, Chinese (GB18030 and Big5), Japanese (Shift-JIS) and UTF-8.</li>
+        <li><strong>Zip</strong> archives, including the password-protected ones Alipay and WeChat Pay send by email. Share the zip as it is; Lavie asks for the password and never stores it.</li>
+        <li><strong>Screenshots and photos</strong> of a transaction list.</li>
+      </ul>
+      <p>The file is read on your iPhone. Only its text is sent to DeepSeek, an AI service, to find the transactions, after you allow it once. Files over 30 MB are refused; very long statements are cut at about 120,000 characters, and Lavie says so.</p>
+
+      <h2>Where to find this month's records</h2>
+
+      <h3 id="singapore">Singapore</h3>
+      <p><strong>DBS / POSB, OCBC, UOB:</strong> open the account or card in the app, find Transaction History, and look for the download or share icon. Accounts go back about six months; cards show the current month.</p>
+      <p><strong>PayLah!, PayNow:</strong> the transaction list has a share icon that exports a PDF.</p>
+
+      <h3 id="china">China</h3>
+      <p><strong>Alipay (支付宝):</strong> 我的 › 账单 › ··· › 开具交易流水证明 › 用于个人对账. Choose the dates and send it to your email. The zip is protected by the password in Alipay's message; share the zip to Lavie as it is and type the password when asked.</p>
+      <p><strong>WeChat Pay (微信支付):</strong> 我 › 服务 › 钱包 › 账单 › 常见问题 › 下载账单 › 用于个人对账. Up to three months at a time, sent by email as a zip with a password.</p>
+      <p><strong>Bank apps:</strong> look for 账单 or 交易明细 and an export that emails you the file.</p>
+
+      <h3 id="hong-kong-taiwan">Hong Kong and Taiwan</h3>
+      <p>Most banking apps export the current month under 交易紀錄 or 帳單 as a CSV or PDF; e-wallets under 交易紀錄.</p>
+
+      <h3 id="japan">Japan</h3>
+      <p><strong>Cards</strong> (楽天カード, 三井住友カード, JCB, イオンカード): ご利用明細 › CSVダウンロード on the website, or a screenshot of the list in the app.</p>
+      <p><strong>Banks and PayPay:</strong> 入出金明細 or 取引履歴 › ダウンロード, or a screenshot.</p>
+
+      <h3 id="us-canada">United States and Canada</h3>
+      <p><strong>Chase, Amex, Bank of America, Capital One, TD, RBC:</strong> Activity › Download, choose CSV and a date range up to today.</p>
+      <p><strong>Apple Card:</strong> Wallet › Apple Card › Card Balance › a statement › Export Transactions.</p>
+
+      <h3 id="europe-uk">Europe and the UK</h3>
+      <p>Most banking apps export a CSV or PDF under Transactions (Umsätze, Mouvements, Movimientos) with a date range up to today. <strong>Revolut, N26, Monzo, Wise:</strong> Statement › Export.</p>
+
+      <h3 id="brazil">Brazil</h3>
+      <p><strong>Nubank, Itaú, Bradesco, Inter:</strong> Extrato › Exportar, as CSV, OFX or PDF.</p>
+
+      <h3 id="anywhere">Anywhere else</h3>
+      <p>Open the account in your bank's app, find the transaction list, and look for a download, export or share icon. A screenshot of the list works too.</p>
+
+      <h2>After an import</h2>
+      <p>Lavie remembers the last day the import covered and suggests exporting from there to today next time. If a name came back monthly for about the same amount (Netflix, the phone bill), Lavie offers to turn those entries into one repeating bill, so it's counted before payday. Everything an import adds can be undone from the message that appears afterwards.</p>
+
+      <h2>Free plan</h2>
+      <p>One import per payday cycle is free. Lavie Plus has no limit.</p>
+
+      <div class="card">
+        <h2>A file Lavie couldn't read?</h2>
+        <p>Write to <a href="mailto:kui.liang.sg@gmail.com">kui.liang.sg@gmail.com</a> with the bank or app it came from and the file type. A sample with the amounts changed helps most.</p>
+      </div>
+    </main>
+    <footer class="footer">
+      <p><a href="/help">Help</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></p>
+      <p>© 2026 Kui Liang. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>

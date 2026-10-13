@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Automatic logging · Lavie Help</title>
+  <meta name="description" content="Let Apple Pay, your bank's notifications, texts or emails log purchases in Lavie by themselves, with one shortcut you add once.">
+  <link rel="canonical" href="https://lifebar.app/help/automation">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.svg">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .button { display: inline-block; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 600; font-size: 16px; padding: 14px 22px; border-radius: 14px; margin: 8px 0 4px; }
+    .button:hover { opacity: .9; }
+    ol { padding-left: 22px; }
+    ol li { margin-bottom: 10px; }
+    .note { font-size: 14px; color: var(--ink-faint); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="nav">
+      <a class="brand" href="/"><img src="/icon.svg" alt="">Lavie</a>
+      <nav class="nav-links">
+        <a href="/help" aria-current="page">Help</a>
+        <a href="/support">Support</a>
+        <a href="/privacy">Privacy</a>
+      </nav>
+    </header>
+    <main>
+      <h1>Automatic logging</h1>
+      <p class="lede">Pay with Apple Pay or get a bank alert, and the purchase lands in Lavie by itself, filed under the name's category.</p>
+
+      <div class="summary">
+        <p>It takes one shortcut, added once, and one automation per source in the Shortcuts app. Lavie reads each alert on your iPhone and sends you a note you can tap to fix or swipe to undo. Codes, declined cards and balance alerts are ignored.</p>
+      </div>
+
+      <h2 id="shortcut">1. Add the Lavie shortcut</h2>
+      <p>Open this link on your iPhone with Lavie installed, then tap <strong>Add Shortcut</strong>. It appears in Shortcuts as "Log in Lavie". That's the only shortcut you need; every source below runs it.</p>
+      <p><a class="button" href="/shortcuts/Log%20in%20Lavie.shortcut">Add the Lavie shortcut</a></p>
+      <p class="note">If Safari shows a download instead, open the file from the Downloads icon and it opens in Shortcuts.</p>
+
+      <h2 id="sources">2. Choose what runs it</h2>
+      <p>Each source is an automation in the Shortcuts app: open Shortcuts, tap <strong>Automation</strong> at the bottom, then <strong>+</strong>. Pick the trigger, then the shortcut you just added. Choose <strong>Run Immediately</strong> so it never asks.</p>
+
+      <h3 id="notification">Bank or wallet app notifications (iOS 27 and later)</h3>
+      <p>Card purchases, PayNow, Alipay, WeChat Pay: whatever your apps already notify you about.</p>
+      <ol>
+        <li>Shortcuts › Automation › + › <strong>Notification</strong>.</li>
+        <li>Choose the bank or wallet app. Leave the text filter empty. Choose <strong>Run Immediately</strong>, then Next.</li>
+        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>. Done.</li>
+      </ol>
+      <p class="note">Repeat for each app you want to read. A notification that isn't about a purchase logs nothing.</p>
+
+      <h3 id="wallet">Apple Pay (iOS 17 and later)</h3>
+      <p>The amount and the shop, the moment you tap your iPhone or Apple Watch. Only payments made by tapping; online purchases arrive through your bank's notifications instead.</p>
+      <ol>
+        <li>Shortcuts › Automation › + › <strong>Transaction</strong> (called <strong>Wallet</strong> on newer iOS).</li>
+        <li>Pick the cards you pay with. Choose <strong>Run Immediately</strong>, then Next.</li>
+        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>. Done.</li>
+      </ol>
+
+      <h3 id="message">Bank text messages</h3>
+      <p>The SMS alerts many banks send for every card charge.</p>
+      <ol>
+        <li>Shortcuts › Automation › + › <strong>Message</strong>.</li>
+        <li>Under <strong>Message Contains</strong>, type a phrase your bank's alerts always use, such as "transaction of", "消费" or "ご利用". Bank numbers usually can't be chosen as a sender, so the phrase is what picks the right messages. Choose <strong>Run Immediately</strong>, then Next.</li>
+        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>. Done.</li>
+      </ol>
+
+      <h3 id="mail">Card alerts by email</h3>
+      <p>Cards that email you after each charge, as many do in Japan. Works with the Mail app.</p>
+      <ol>
+        <li>Shortcuts › Automation › + › <strong>Email</strong>.</li>
+        <li>Pick the sender your card alerts come from. Choose <strong>Run Immediately</strong>, then Next.</li>
+        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>. Done.</li>
+      </ol>
+
+      <h2 id="check">3. Check it reads your alerts</h2>
+      <p>In Lavie, open Settings › Automatic logging › <strong>Try it</strong>, paste a real alert from your bank, and tap Read it. If Lavie reads it wrong, send us the alert's wording (with the amounts changed) and we'll teach it. You can also turn on <strong>Ask DeepSeek to read it</strong> for alerts Lavie can't read on its own: only that alert's text is sent, ten times a cycle on the free plan.</p>
+
+      <h2 id="one-tap">One tap, no automation</h2>
+      <h3 id="control-center">Control Center and Lock Screen</h3>
+      <p>Open Control Center, press and hold, tap <strong>Add a Control</strong>, search for Lavie and add <strong>Log spending</strong>. On the Lock Screen, customize it and add the same control or widget. It opens Lavie's keypad.</p>
+      <h3 id="action-button">Action button</h3>
+      <p>Settings › Action Button › <strong>Shortcut</strong> › <strong>Log spending</strong> from Lavie. Press it, type the amount, done.</p>
+
+      <h2>Privacy</h2>
+      <p>Alerts are read on your iPhone. Nothing leaves it unless you turn on the DeepSeek fallback, and then only the text of an alert Lavie couldn't read. See the <a href="/privacy">privacy policy</a>.</p>
+
+      <div class="card">
+        <h2>Stuck?</h2>
+        <p>Write to <a href="mailto:kui.liang.sg@gmail.com">kui.liang.sg@gmail.com</a> with your iOS version and which step didn't work.</p>
+      </div>
+    </main>
+    <footer class="footer">
+      <p><a href="/help">Help</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></p>
+      <p>© 2026 Kui Liang. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>
