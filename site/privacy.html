@@ -22,7 +22,7 @@
     </header>
     <main>
       <h1>Privacy Policy</h1>
-      <p class="lede">Last updated: October 11, 2026</p>
+      <p class="lede">Last updated: October 13, 2026</p>
 
       <div class="summary">
         <p><strong>In short:</strong> Lavie has no accounts and no analytics. Your financial data stays on your iPhone, or in your own iCloud account if you turn on sync. The only time any of your data leaves your device is when you choose to import a statement, and then only that statement's text is sent.</p>
@@ -37,11 +37,12 @@
       <p>If you turn on iCloud sync, your data is stored in the private database of your own iCloud account through Apple's CloudKit, so it can sync between your devices. We cannot see or access it. This is governed by <a href="https://www.apple.com/legal/privacy/">Apple's Privacy Policy</a>.</p>
 
       <h2>Statement import (optional)</h2>
-      <p>When you import a bank or card statement, the file is read on your device. Before anything is sent, Lavie asks for your permission. If you agree, only the text of the file you choose is sent to <strong>DeepSeek</strong>, an AI service, to find the transactions in it. Your other Lavie data is never sent.</p>
+      <p>When you import a bank or card statement, the file is read on your device. Before anything is sent, Lavie asks for your permission. If you agree, only the text of the file you choose is sent, through our server at lifebar.app, to <strong>DeepSeek</strong>, an AI service, to find the transactions in it. Your other Lavie data is never sent.</p>
       <ul>
         <li>Statement text may include transaction descriptions, amounts, dates, and details printed on the statement such as your name or a partial account number.</li>
         <li>DeepSeek processes the text on its servers, which may be located outside your country, including in the People's Republic of China. Its handling of the text is governed by DeepSeek's own privacy policy.</li>
-        <li>We do not store the statement or its text on any server we operate.</li>
+        <li>Our server, hosted by Cloudflare, passes the text on to DeepSeek and returns the result. It does not store the statement or its text.</li>
+        <li>To prevent abuse, our server counts statement requests per network. It keeps only a one-way hash of your IP address, which changes every day, with that count, and removes old counts after two days.</li>
         <li>Matching against your existing records to find duplicates happens on your device.</li>
       </ul>
       <p>If you don't want to use DeepSeek, don't use statement import. Every other feature works without it.</p>

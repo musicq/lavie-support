@@ -2,5 +2,20 @@
   "$schema": "https://unpkg.com/wrangler@4.149.0/config-schema.json",
   "name": "lavie-site",
   "pages_build_output_dir": "./site",
-  "compatibility_date": "2026-06-24"
+  "compatibility_date": "2026-06-24",
+  // /api/statement request counts. Secrets (set with `wrangler pages secret put`): DEEPSEEK_API_KEY, IP_SALT.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "lavie-proxy",
+      "database_id": "2ce837df-c977-45e4-9a99-78291d5a01a8",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // Statement chunks (up to 9,000 characters each; a long statement is up to 14).
+  "vars": {
+    "LIMIT_IP_HOUR": "40",
+    "LIMIT_IP_DAY": "150",
+    "LIMIT_ALL_DAY": "4000"
+  }
 }
