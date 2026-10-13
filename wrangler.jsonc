@@ -20,10 +20,12 @@
     // "1" refuses requests that fail App Attest or DeviceCheck; "0" only logs them.
     "ENFORCE": "0",
     // Daily AI budget per person, in millionths of a dollar (50000 = $0.05).
-    // The first statement of a day always fits; a free try is one statement per device.
+    // The first statement of a day always fits.
     "CAP_PAID_MICRO": "50000",
     "CAP_TRIAL_MICRO": "20000",
     "CAP_FREE_MICRO": "50000",
+    // Free statement imports per device per calendar month (the app allows one per payday cycle).
+    "FREE_IMPORTS_PER_MONTH": "2",
     // Statement chunks per address (up to 9,000 characters each; a long statement is up to 14), and for everyone.
     "LIMIT_IP_HOUR": "40",
     "LIMIT_IP_DAY": "150",

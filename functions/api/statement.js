@@ -7,7 +7,7 @@
 // budget. Requests are also counted per (hashed) IP and for everyone per day, which bounds the
 // bill whatever happens.
 
-import { markTrialUsed } from "../../lib/apple.js";
+import { setFreeImportsThisMonth } from "../../lib/apple.js";
 import { costMicro, overLimit, reply, session, today } from "../../lib/proxy.js";
 
 const MODEL = "deepseek-flash";
@@ -112,7 +112,7 @@ Never invent transactions. If there are none, reply {"transactions":[]}.`;
 }
 
 /// Adds the call's cost to the session, the person's day and their total; the first paid-for
-/// chunk of a free try uses up this device's free import.
+/// chunk of a free statement import counts it against this device's month.
 async function record(env, current, cost) {
   const now = new Date().toISOString();
   await env.DB.batch([
@@ -123,11 +123,11 @@ async function record(env, current, cost) {
     ).bind(current.user_id, today(), cost),
     env.DB.prepare("UPDATE users SET cost_micro = cost_micro + ?2, chunks = chunks + 1, last_seen = ?3 WHERE id = ?1").bind(current.user_id, cost, now),
   ]);
-  if (current.tier === "free" && current.device_token) {
+  if (current.tier === "free" && current.device_token && current.device_count !== null) {
     const claimed = await env.DB.prepare("UPDATE sessions SET trial_marked = 1 WHERE token = ?1 AND trial_marked = 0 RETURNING token").bind(current.token).first();
     if (claimed) {
       try {
-        await markTrialUsed(env, current.device_token, current.sandbox === 1);
+        await setFreeImportsThisMonth(env, current.device_token, current.sandbox === 1, current.device_count + 1);
       } catch (error) {
         console.log(JSON.stringify({ event: "trial_mark", ok: false, error: String(error.message || error) }));
       }
