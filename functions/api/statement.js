@@ -8,10 +8,12 @@
 // bill whatever happens.
 
 import { setFreeImportsThisMonth } from "../../lib/apple.js";
-import { costMicro, overLimit, reply, session, today } from "../../lib/proxy.js";
+import { claimSingleUse, costMicro, overLimit, purposeOf, reply, session, today } from "../../lib/proxy.js";
 
 const MODEL = "deepseek-flash";
 const MAX_TEXT = 12_000; // UTF-16 units; the app sends chunks of 9,000 characters.
+// One bank alert, SMS or card email: the app sends at most 4,000 characters of it.
+const MAX_ALERT_TEXT = 6_000;
 const MAX_CATEGORIES = 80;
 
 export async function onRequestPost({ request, env, waitUntil }) {
@@ -19,14 +21,21 @@ export async function onRequestPost({ request, env, waitUntil }) {
 
   const current = await session(request, env);
   if (!current) return reply(401, { error: "session" });
+  // Alert and tidy sessions skip the free-import check: a tidy one can't read here at all, an
+  // alert one reads one short text, once. A statement goes through a statement session.
+  const purpose = purposeOf(current);
+  if (purpose === "tidy") return reply(401, { error: "session" });
   if (current.spent_micro >= current.budget_micro) return reply(429, { error: "daily_limit" });
 
   let input;
   try {
     input = validate(await request.json());
+    if (purpose === "alert" && (input.text.length > MAX_ALERT_TEXT || input.parts > 1)) throw new Error("alert text");
   } catch (error) {
     return reply(400, { error: "bad_request", detail: String(error.message || error) });
   }
+  const single = purpose === "alert";
+  if (single && !(await claimSingleUse(env, current))) return reply(401, { error: "session" });
 
   const limited = await overLimit(request, env, "ip", Number(env.LIMIT_IP_HOUR || 40), Number(env.LIMIT_IP_DAY || 150), Number(env.LIMIT_ALL_DAY || 4000));
   if (limited) return reply(429, { error: "busy", scope: limited });
@@ -57,7 +66,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
   if (!response.ok) return reply(502, { error: "upstream", status: response.status });
 
   const envelope = await response.json().catch(() => null);
-  waitUntil(record(env, current, costMicro(envelope?.usage)));
+  waitUntil(record(env, current, costMicro(envelope?.usage), single));
   const content = envelope?.choices?.[0]?.message?.content;
   let parsed;
   try {
@@ -113,10 +122,11 @@ Never invent transactions. If there are none, reply {"transactions":[]}.`;
 
 /// Adds the call's cost to the session, the person's day and their total; the first paid-for
 /// chunk of a free statement import counts it against this device's month.
-async function record(env, current, cost) {
+/// A single-use session already counted its one chunk when it was claimed.
+async function record(env, current, cost, claimed = false) {
   const now = new Date().toISOString();
   await env.DB.batch([
-    env.DB.prepare("UPDATE sessions SET spent_micro = spent_micro + ?2, chunks = chunks + 1 WHERE token = ?1").bind(current.token, cost),
+    env.DB.prepare("UPDATE sessions SET spent_micro = spent_micro + ?2, chunks = chunks + ?3 WHERE token = ?1").bind(current.token, cost, claimed ? 0 : 1),
     env.DB.prepare(
       `INSERT INTO usage_daily (user_id, day, cost_micro, chunks) VALUES (?1, ?2, ?3, 1)
        ON CONFLICT(user_id, day) DO UPDATE SET cost_micro = cost_micro + ?3, chunks = chunks + 1`

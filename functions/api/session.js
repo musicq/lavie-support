@@ -1,21 +1,23 @@
 // POST /api/session {payload, keyId?, assertion?}: starts one import.
 //
 // payload is a JSON string the app signed with its App Attest key:
-//   {challenge, chunks, purpose: "statement" | "alert", jws?, deviceToken?, sandbox?}
+//   {challenge, chunks, purpose: "statement" | "alert" | "tidy", jws?, deviceToken?, sandbox?}
 // - Lavie Plus is proven by a StoreKit transaction (jws), and counted per originalTransactionId,
 //   so it is one person on iPhone and iPad alike.
 // - Without Plus, a statement import needs DeviceCheck: the app allows one per payday cycle,
 //   the server FREE_IMPORTS_PER_MONTH per device per calendar month (cycles and months don't
 //   line up), counted in DeviceCheck's two bits so a reinstall doesn't reset it. Reading one bank
-//   alert (purpose "alert") only spends from the daily budget.
+//   alert (purpose "alert") or tidying names and categories (purpose "tidy", /api/tidy) only spends
+//   from the daily budget; the app keeps the free plan to one tidy.
 // - Each person has a daily AI budget; a session gets what is left of it (at least one statement).
 // ENFORCE_ATTEST and ENFORCE_DEVICE turn refusing on for each check; with "0" a failure is only logged.
 
 import { freeImportsThisMonth, verifyAssertion, verifyTransaction } from "../../lib/apple.js";
 import { PRODUCTS, addressHash, appId, caps, enforced, json, overLimit, reply, today, token, useChallenge } from "../../lib/proxy.js";
 
-// Millionths of a dollar at peak prices: a dense 9,000-character chunk, and one bank alert.
-const ESTIMATE = { statement: 10_000, alert: 1_000 };
+// Millionths of a dollar at peak prices: a dense 9,000-character chunk, one bank alert, one tidy
+// of a few hundred names.
+const ESTIMATE = { statement: 10_000, alert: 1_000, tidy: 15_000 };
 
 export async function onRequestPost({ request, env }) {
   if (!env.DB || !env.DEEPSEEK_API_KEY) return reply(503, { error: "unavailable" });
@@ -35,7 +37,7 @@ export async function onRequestPost({ request, env }) {
   }
   if (!(await useChallenge(env, payload.challenge))) return reply(400, { error: "challenge" });
   const sandbox = payload.sandbox === true;
-  const purpose = payload.purpose === "alert" ? "alert" : "statement";
+  const purpose = ["alert", "tidy"].includes(payload.purpose) ? payload.purpose : "statement";
   const checks = {};
 
   // 1. The genuine app on a real device.
@@ -99,7 +101,8 @@ export async function onRequestPost({ request, env }) {
   const cap = caps(env)[tier];
   const day = today();
   const spent = (await env.DB.prepare("SELECT cost_micro FROM usage_daily WHERE user_id = ?1 AND day = ?2").bind(user, day).first())?.cost_micro ?? 0;
-  const estimate = chunks * ESTIMATE[purpose];
+  // Alert and tidy sessions answer one request (statement.js, tidy.js), whatever was asked for.
+  const estimate = (purpose === "statement" ? chunks : 1) * ESTIMATE[purpose];
   // The first statement of the day always fits, whatever its size; after that, what's left of the cap.
   if (spent > 0 && spent + estimate > cap) return finish(429, { error: "daily_limit" }, { ...checks, tier });
 
