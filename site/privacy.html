@@ -23,31 +23,41 @@
     </header>
     <main>
       <h1>Privacy Policy</h1>
-      <p class="lede">Last updated: October 13, 2026</p>
+      <p class="lede">Last updated: October 20, 2026</p>
 
       <div class="summary">
-        <p><strong>In short:</strong> Lavie has no accounts and no analytics. Your financial data stays on your iPhone, or in your own iCloud account if you turn on sync. The only time any of your data leaves your device is when you choose to import a statement, and then only that statement's text is sent.</p>
+        <p><strong>In short:</strong> Lavie has no accounts and no analytics. Your financial data stays on your device, or in your own iCloud account if you turn on sync. It leaves your device only when you choose: when you use one of Lavie's AI features, and then only what that feature needs, or when you share a ledger, and then only with the people you invite.</p>
       </div>
 
-      <p>Lavie ("the App") is a personal finance app developed by Kui Liang ("we"). This policy explains what data the App handles and where it goes.</p>
+      <p>Lavie ("the App") is a personal finance app for iPhone and iPad developed by Kui Liang ("we"). This policy explains what data the App handles and where it goes.</p>
 
       <h2>Data stored on your device</h2>
-      <p>Everything you enter, such as income, bills, spending, goals, holdings, your payday and your settings, is stored on your device. Widgets read a summary of these numbers from your device. Reminders are scheduled locally by iOS.</p>
+      <p>Everything you enter, such as income, bills, spending, goals, holdings, balance checks, your payday and your settings, is stored on your device. Widgets and Shortcuts read a summary of these numbers on your device. Reminders and other notifications are scheduled locally by iOS.</p>
 
       <h2>iCloud sync (optional)</h2>
       <p>If you turn on iCloud sync, your data is stored in the private database of your own iCloud account through Apple's CloudKit, so it can sync between your devices. We cannot see or access it. This is governed by <a href="https://www.apple.com/legal/privacy/">Apple's Privacy Policy</a>.</p>
 
-      <h2>Statement import (optional)</h2>
-      <p>When you import a bank or card statement, the file is read on your device. Before anything is sent, Lavie asks for your permission. If you agree, only the text of the file you choose is sent, through our server at lifebar.app, to <strong>DeepSeek</strong>, an AI service, to find the transactions in it. Your other Lavie data is never sent.</p>
+      <h2>Shared ledgers (optional)</h2>
+      <p>If you share a ledger, its entries, goals, holdings and settings are shared through Apple's CloudKit with the people you invite, and kept in the iCloud account of the person who shared it. Only invited people can open it, and each can either edit it or only view it, as the owner chooses. Invitations show only the name "Lavie", never the ledger's name or amounts. Removing someone stops their access but can't erase copies they already saved or exported. Your personal ledger is never shared.</p>
+
+      <h2>Automatic logging</h2>
+      <p>If you set up automations in the Shortcuts app, they pass the text of a bank alert, text message or email, or the details of an Apple Pay purchase, to the App. The App reads it on your device and keeps only the entry it makes. If you turn on <strong>Ask AI to read it</strong>, an alert the App can't read on its own is sent to an AI service as described below.</p>
+
+      <h2>AI features (optional)</h2>
+      <p>Three features use an AI service. Each asks for your permission before anything is sent, and each sends only what it needs, through our server at lifebar.app, to an AI service provider:</p>
       <ul>
-        <li>Statement text may include transaction descriptions, amounts, dates, and details printed on the statement such as your name or a partial account number.</li>
-        <li>DeepSeek processes the text on its servers, which may be located outside your country, including in the People's Republic of China. Its handling of the text is governed by DeepSeek's own privacy policy.</li>
-        <li>Our server, hosted by Cloudflare, passes the text on to DeepSeek and returns the result. It does not store the statement or its text.</li>
-        <li>To keep statement import and the reading of bank alerts for Lavie Plus subscribers (and the free plan's allowance), the App sends Apple's proofs with each request: an App Attest signature showing the request comes from the genuine App, your Lavie Plus transaction as signed by Apple, or, without Lavie Plus, an Apple DeviceCheck token. Our server checks them with Apple and keeps your subscription's original transaction ID (a number from Apple, not your name or Apple ID), the App Attest key of each install, and how much statement reading you used each day, to apply a daily limit. Through DeviceCheck, Apple stores two bits for your device counting the free imports used this month.</li>
-        <li>To prevent abuse, our server also counts statement requests per network. It keeps only a one-way hash of your IP address, which changes every day, with that count, and removes old counts after two days.</li>
-        <li>Matching against your existing records to find duplicates happens on your device.</li>
+        <li><strong>Importing bank records:</strong> the text of the file you choose (read on your device), with your base currency, today's date and your category names, to find the transactions in it. Statement text may include descriptions, amounts, dates and details printed on it, such as your name or part of an account number.</li>
+        <li><strong>Ask AI to read it</strong> (automatic logging): the text of one alert the App couldn't read, with the same base currency, date and category names.</li>
+        <li><strong>Tidy with AI</strong> (Categories): the names you have recorded (such as "Spotify" or "GRAB* A-8XK2J"), how many entries each has, and your category names, to suggest cleaner names and better categories. Amounts, dates and notes are not sent. Nothing changes until you review and apply the suggestions.</li>
       </ul>
-      <p>If you don't want to use DeepSeek, don't use statement import. Every other feature works without it.</p>
+      <p>Your other Lavie data is never sent. Finding duplicates and applying the results happen on your device.</p>
+      <ul>
+        <li>The AI service provider processes the text on its servers, which may be located outside your country, including in the People's Republic of China. Its handling of the text is governed by the provider's own privacy terms.</li>
+        <li>Our server, hosted by Cloudflare, passes the text on to the AI service provider and returns the result. It does not store the text, the names or the results.</li>
+        <li>To keep these features to the genuine App and to each plan's allowance, the App sends Apple's proofs with each request: an App Attest signature showing the request comes from the genuine App, your Lavie Plus transaction as signed by Apple if you subscribe, and, for a free statement import, an Apple DeviceCheck token. Our server checks them with Apple and keeps your subscription's original transaction ID (a number from Apple, not your name or Apple ID), the App Attest key of each install, and how much AI use you had each day, to apply a daily limit. Through DeviceCheck, Apple stores two bits for your device counting the free imports used this month.</li>
+        <li>To prevent abuse, our server also counts requests per network. It keeps only a one-way hash of your IP address, which changes every day, with that count, and removes old counts after two days.</li>
+      </ul>
+      <p>If you don't want your text sent to an AI service, don't use these features. Every other feature works without them.</p>
 
       <h2>Exchange rates</h2>
       <p>To convert currencies, the App downloads exchange rates from the <a href="https://frankfurter.dev">Frankfurter API</a> (European Central Bank data). These requests contain only currency codes and dates, never your amounts or records.</p>
@@ -67,7 +77,7 @@
       <p>You can export a backup of your data as a JSON file. It is created on your device and goes only where you choose to save or share it.</p>
 
       <h2>Deleting your data</h2>
-      <p>Delete the App to remove everything stored on your device. If you used iCloud sync, remove Lavie's data in the Settings app › your name › iCloud › Manage Storage. Because we hold no copy of your data, there is nothing else to delete on our side.</p>
+      <p>Delete the App to remove everything stored on your device. If you used iCloud sync, remove Lavie's data in the Settings app › your name › iCloud › Manage Storage. To stop sharing, delete a ledger you own or leave one you joined, in the App. Because we hold no copy of your data, there is nothing else to delete on our side.</p>
 
       <h2>Children</h2>
       <p>Lavie is not directed at children under 13, and we do not knowingly collect data from children.</p>
@@ -79,8 +89,8 @@
       <p>Questions about privacy? Write to <a href="mailto:support@lifebar.app">support@lifebar.app</a>.</p>
     </main>
     <footer class="footer">
-      <p><a href="/support">Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></p>
-      <p>© 2026 Kui Liang. All rights reserved.</p>
+      <p><a href="/help">Help</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></p>
+      <p>© 2026 Lavie. All rights reserved.</p>
     </footer>
   </div>
 </body>

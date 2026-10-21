@@ -28,14 +28,17 @@
         <p>Statements come once a month, but the transaction list in your bank's app can be exported any day. Lavie skips what it already has, including your repeating bills, so nothing is counted twice.</p>
       </div>
 
+      <h2 id="in-lavie">Where it is in Lavie</h2>
+      <p>On the Plan tab, tap <strong>Import</strong>. It's also the button at the top right of the keypad that + opens. Then choose <strong>Choose a file</strong>, <strong>Screenshots</strong> or <strong>Take a photo</strong>.</p>
+
       <h2>What Lavie reads</h2>
       <ul>
         <li><strong>PDF</strong> statements, including scanned ones.</li>
-        <li><strong>CSV</strong> and <strong>Excel (.xlsx)</strong> exports, in English, Chinese (GB18030 and Big5), Japanese (Shift-JIS) and UTF-8.</li>
-        <li><strong>Zip</strong> archives, including the password-protected ones Alipay and WeChat Pay send by email. Share the zip as it is; Lavie asks for the password and never stores it.</li>
-        <li><strong>Screenshots and photos</strong> of a transaction list.</li>
+        <li><strong>CSV</strong> and <strong>Excel (.xlsx)</strong> exports. Older .xls files and OFX aren't read; export as CSV instead.</li>
+        <li><strong>Zip</strong> files, including the password-protected ones Alipay and WeChat Pay send by email. Save the zip to Files first (in Mail, open the attachment and tap Save to Files), then pick it with Choose a file. Lavie asks for the password and never stores it.</li>
+        <li><strong>Screenshots</strong> of a transaction list, up to ten at a time, or a <strong>photo</strong> of a paper statement.</li>
       </ul>
-      <p>The file is read on your iPhone. Only its text is sent to an AI service to find the transactions, after you allow it once. Files over 30 MB are refused; very long statements are cut at about 120,000 characters, and Lavie says so.</p>
+      <p>The file is read on your iPhone or iPad. Only its text is sent to an AI service to find the transactions, after you allow it once. Files over 30 MB are refused; very long statements are cut at 40 PDF pages or about 120,000 characters, and Lavie says so, so import the later months as a second file.</p>
 
       <h2>Where to find this month's records</h2>
 
@@ -44,8 +47,8 @@
       <p><strong>PayLah!, PayNow:</strong> the transaction list has a share icon that exports a PDF.</p>
 
       <h3 id="china">China</h3>
-      <p><strong>Alipay (支付宝):</strong> 我的 › 账单 › ··· › 开具交易流水证明 › 用于个人对账. Choose the dates and send it to your email. The zip is protected by the password in Alipay's message; share the zip to Lavie as it is and type the password when asked.</p>
-      <p><strong>WeChat Pay (微信支付):</strong> 我 › 服务 › 钱包 › 账单 › 常见问题 › 下载账单 › 用于个人对账. Up to three months at a time, sent by email as a zip with a password.</p>
+      <p><strong>Alipay (支付宝):</strong> 我的 › 账单 › ··· › 开具交易流水证明 › 用于个人对账. Choose the dates and send it to your email. The zip is protected by the password in Alipay's message: save the zip to Files, choose it in Lavie and type the password when asked.</p>
+      <p><strong>WeChat Pay (微信支付):</strong> 我 › 服务 › 钱包 › 账单 › 常见问题 › 下载账单 › 用于个人对账. Up to three months at a time, sent by email as a zip with a password. Save it to Files and choose it the same way.</p>
       <p><strong>Bank apps:</strong> look for 账单 or 交易明细 and an export that emails you the file.</p>
 
       <h3 id="hong-kong-taiwan">Hong Kong and Taiwan</h3>
@@ -63,16 +66,16 @@
       <p>Most banking apps export a CSV or PDF under Transactions (Umsätze, Mouvements, Movimientos) with a date range up to today. <strong>Revolut, N26, Monzo, Wise:</strong> Statement › Export.</p>
 
       <h3 id="brazil">Brazil</h3>
-      <p><strong>Nubank, Itaú, Bradesco, Inter:</strong> Extrato › Exportar, as CSV, OFX or PDF.</p>
+      <p><strong>Nubank, Itaú, Bradesco, Inter:</strong> Extrato › Exportar, as CSV or PDF.</p>
 
       <h3 id="anywhere">Anywhere else</h3>
       <p>Open the account in your bank's app, find the transaction list, and look for a download, export or share icon. A screenshot of the list works too.</p>
 
       <h2>After an import</h2>
-      <p>Lavie remembers the last day the import covered and suggests exporting from there to today next time. If a name came back monthly for about the same amount (Netflix, the phone bill), Lavie offers to turn those entries into one repeating bill, so it's counted before payday. Everything an import adds can be undone from the message that appears afterwards.</p>
+      <p>Lavie remembers the last day the import covered and suggests exporting from there to today next time. If the same name came back three or more times, about a month apart and for about the same amount (Netflix, the phone bill), Lavie offers to turn those entries into one repeating bill, so it's counted before payday. Everything an import adds can be undone with <strong>Undo</strong> in the message that appears afterwards.</p>
 
       <h2>Free plan</h2>
-      <p>One import per payday cycle is free. Lavie Plus has no limit.</p>
+      <p>One import per payday cycle is free, and it comes back on payday. Lavie Plus has no limit.</p>
 
       <div class="card">
         <h2>A file Lavie couldn't read?</h2>
@@ -81,7 +84,7 @@
     </main>
     <footer class="footer">
       <p><a href="/help">Help</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></p>
-      <p>© 2026 Kui Liang. All rights reserved.</p>
+      <p>© 2026 Lavie. All rights reserved.</p>
     </footer>
   </div>
 </body>

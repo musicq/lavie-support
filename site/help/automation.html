@@ -10,11 +10,21 @@
   <link rel="apple-touch-icon" href="/icon.svg">
   <link rel="stylesheet" href="/style.css">
   <style>
-    .button { display: inline-block; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 600; font-size: 16px; padding: 14px 22px; border-radius: 14px; margin: 8px 0 4px; }
+    .get { display: flex; align-items: center; gap: 16px; background: var(--paper-raised); border-radius: 20px; padding: 18px; margin: 12px 0 8px; }
+    .get .tile { flex: none; width: 64px; height: 44px; border-radius: 11px; background: linear-gradient(160deg, #6fe28b, #34c759); color: #fff; padding: 7px 9px; }
+    .get .tile svg { width: 16px; height: 16px; display: block; }
+    .get div { flex: 1; min-width: 0; }
+    .get b { display: block; color: var(--ink); font-size: 16px; }
+    .get p { margin: 0; font-size: 14px; }
+    .button { flex: none; display: inline-block; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 600; font-size: 15px; padding: 11px 18px; border-radius: 999px; }
     .button:hover { opacity: .9; }
     ol { padding-left: 22px; }
     ol li { margin-bottom: 10px; }
     .note { font-size: 14px; color: var(--ink-faint); }
+    @media (max-width: 480px) {
+      .get { flex-wrap: wrap; }
+      .get .button { width: 100%; text-align: center; padding: 14px 18px; font-size: 16px; }
+    }
   </style>
 </head>
 <body>
@@ -32,40 +42,43 @@
       <p class="lede">Pay with Apple Pay or get a bank alert, and the purchase lands in Lavie by itself, filed under the name's category.</p>
 
       <div class="summary">
-        <p>It takes one shortcut, added once, and one automation per source in the Shortcuts app. Lavie reads each alert on your iPhone and sends you a note you can tap to fix or swipe to undo. Codes, declined cards and balance alerts are ignored.</p>
+        <p>It takes the Lavie shortcut, added once, and one automation for each source in the Shortcuts app. Lavie reads each alert on your iPhone. Codes, declined cards and balance alerts are ignored.</p>
       </div>
 
       <h2 id="shortcut">1. Add the Lavie shortcut</h2>
-      <p>Open this link on your iPhone with Lavie installed, then tap <strong>Add Shortcut</strong>. It appears in Shortcuts as "Log in Lavie". That's the only shortcut you need; every source below runs it.</p>
-      <p><a class="button" href="/shortcuts/Log%20in%20Lavie.shortcut">Add the Lavie shortcut</a></p>
-      <p class="note">If Safari shows a download instead, open the file from the Downloads icon and it opens in Shortcuts.</p>
+      <div class="get">
+        <span class="tile" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 13l15 15"/><path d="M8 3.5v5M5.5 6h5"/><path d="M17 4v3M15.5 5.5h3"/></svg></span>
+        <div><b>Log in Lavie</b><p>The only shortcut you need. Every source below runs it.</p></div>
+        <a class="button" href="/shortcut">Get the shortcut</a>
+      </div>
+      <p class="note">Open it on the iPhone that has Lavie. The page shows what to tap at each step.</p>
 
       <h2 id="sources">2. Choose what runs it</h2>
-      <p>Each source is an automation in the Shortcuts app: open Shortcuts, tap <strong>Automation</strong> at the bottom, then <strong>+</strong>. Pick the trigger, then the shortcut you just added. Choose <strong>Run Immediately</strong> so it never asks.</p>
+      <p>Each source is an automation in the Shortcuts app: open Shortcuts, tap <strong>Automation</strong> at the bottom, then <strong>+</strong> (or <strong>New Automation</strong> the first time). Pick the trigger and choose <strong>Run Immediately</strong> so it never asks. Tap Next, then <strong>Log in Lavie</strong> under My Shortcuts. That's it.</p>
+
+      <h3 id="wallet">Apple Pay (iOS 17 and later)</h3>
+      <p>The amount and the shop, the moment you tap your iPhone or Apple Watch to pay. Only payments made by tapping; online purchases arrive through your bank's notifications instead.</p>
+      <ol>
+        <li>Shortcuts › Automation › + › <strong>Wallet</strong> (called <strong>Transaction</strong> on iOS 17).</li>
+        <li>Pick the cards you pay with. Choose <strong>Run Immediately</strong>, then Next.</li>
+        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>.</li>
+      </ol>
 
       <h3 id="notification">Bank or wallet app notifications (iOS 27 and later)</h3>
       <p>Card purchases, PayNow, Alipay, WeChat Pay: whatever your apps already notify you about.</p>
       <ol>
         <li>Shortcuts › Automation › + › <strong>Notification</strong>.</li>
         <li>Choose the bank or wallet app. Leave the text filter empty. Choose <strong>Run Immediately</strong>, then Next.</li>
-        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>. Done.</li>
+        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>.</li>
       </ol>
-      <p class="note">Repeat for each app you want to read. A notification that isn't about a purchase logs nothing.</p>
-
-      <h3 id="wallet">Apple Pay (iOS 17 and later)</h3>
-      <p>The amount and the shop, the moment you tap your iPhone or Apple Watch. Only payments made by tapping; online purchases arrive through your bank's notifications instead.</p>
-      <ol>
-        <li>Shortcuts › Automation › + › <strong>Transaction</strong> (called <strong>Wallet</strong> on newer iOS).</li>
-        <li>Pick the cards you pay with. Choose <strong>Run Immediately</strong>, then Next.</li>
-        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>. Done.</li>
-      </ol>
+      <p class="note">Repeat for each app you want Lavie to read. A notification that isn't about a purchase logs nothing.</p>
 
       <h3 id="message">Bank text messages</h3>
       <p>The SMS alerts many banks send for every card charge.</p>
       <ol>
         <li>Shortcuts › Automation › + › <strong>Message</strong>.</li>
-        <li>Under <strong>Message Contains</strong>, type a phrase your bank's alerts always use, such as "transaction of", "消费" or "ご利用". Bank numbers usually can't be chosen as a sender, so the phrase is what picks the right messages. Choose <strong>Run Immediately</strong>, then Next.</li>
-        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>. Done.</li>
+        <li>Tap <strong>Message Contains</strong> and type a phrase your bank's alerts always use, such as "transaction of", "消费" or "ご利用". Bank numbers usually can't be chosen as a sender, so the phrase is what picks the right messages. Choose <strong>Run Immediately</strong>, then Next.</li>
+        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>.</li>
       </ol>
 
       <h3 id="mail">Card alerts by email</h3>
@@ -73,20 +86,21 @@
       <ol>
         <li>Shortcuts › Automation › + › <strong>Email</strong>.</li>
         <li>Pick the sender your card alerts come from. Choose <strong>Run Immediately</strong>, then Next.</li>
-        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>. Done.</li>
+        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>.</li>
       </ol>
 
-      <h2 id="check">3. If an alert is read wrong</h2>
-      <p>Each automatic entry sends a note; tap it to fix the amount or name, or swipe it to undo. If Lavie keeps misreading a bank's alerts, send us their wording (with the amounts changed) and we'll teach it. You can also turn on <strong>Ask AI to read it</strong> in Settings › Automatic logging for alerts Lavie can't read on its own: only that alert's text is sent, ten times a cycle on the free plan.</p>
+      <h2 id="check">3. Check what arrived</h2>
+      <p>If Lavie may send you notifications, each automatic entry sends a note: tap it to fix the amount or name, or press and hold it and tap <strong>Undo</strong>. Settings › Automatic logging shows how many purchases have arrived so far.</p>
+      <p>If Lavie keeps misreading a bank's alerts, send us their wording (with the amounts changed) and we'll teach it. You can also turn on <strong>Ask AI to read it</strong> in Settings › Automatic logging for alerts Lavie can't read on its own: only that alert's text is sent, up to ten times a cycle on the free plan.</p>
 
       <h2 id="one-tap">One tap, no automation</h2>
       <h3 id="control-center">Control Center and Lock Screen</h3>
-      <p>Open Control Center, press and hold, tap <strong>Add a Control</strong>, search for Lavie and add <strong>Log spending</strong>. On the Lock Screen, customize it and add the same control or widget. It opens Lavie's keypad.</p>
+      <p>Open Control Center, press and hold an empty spot, tap <strong>Add a Control</strong>, search for Lavie and add <strong>Log spending</strong>. On the Lock Screen, press and hold, tap <strong>Customize</strong>, then add the same control or the Lavie widget. Each opens Lavie's keypad.</p>
       <h3 id="action-button">Action button</h3>
-      <p>Settings › Action Button › <strong>Shortcut</strong> › <strong>Log spending</strong> from Lavie. Press it, type the amount, done.</p>
+      <p>Settings › Action Button › <strong>Controls</strong> › search for Lavie › <strong>Log spending</strong>. Press the button and Lavie's keypad opens: type the amount, done.</p>
 
       <h2>Privacy</h2>
-      <p>Alerts are read on your iPhone. Nothing leaves it unless you turn on the AI fallback, and then only the text of an alert Lavie couldn't read. See the <a href="/privacy">privacy policy</a>.</p>
+      <p>Alerts are read on your iPhone. Nothing leaves it unless you turn on <strong>Ask AI to read it</strong>, and then only the text of an alert Lavie couldn't read. See the <a href="/privacy">privacy policy</a>.</p>
 
       <div class="card">
         <h2>Stuck?</h2>
@@ -95,7 +109,7 @@
     </main>
     <footer class="footer">
       <p><a href="/help">Help</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></p>
-      <p>© 2026 Kui Liang. All rights reserved.</p>
+      <p>© 2026 Lavie. All rights reserved.</p>
     </footer>
   </div>
 </body>

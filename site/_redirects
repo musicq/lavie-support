@@ -3,3 +3,6 @@
 /privacy-policy       /privacy  301
 /terms-of-use.html    /terms    301
 /terms-of-use         /terms    301
+# The shortcut's page, for anyone who guesses the plural or the help path
+/shortcuts            /shortcut  301
+/help/shortcut        /shortcut  301
