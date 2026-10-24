@@ -42,7 +42,7 @@
       <p class="lede">Pay with Apple Pay or get a bank alert, and the purchase lands in Lavie by itself, filed under the name's category.</p>
 
       <div class="summary">
-        <p>It takes the Lavie shortcut, added once, and one automation for each source in the Shortcuts app. Lavie reads each alert on your iPhone. Codes, declined cards and balance alerts are ignored.</p>
+        <p>Add the Lavie shortcut, then choose what runs it in the Shortcuts app. Downloading it alone does not turn on automatic logging. Lavie reads the alerts that your automation passes to it.</p>
       </div>
 
       <h2 id="shortcut">1. Add the Lavie shortcut</h2>
@@ -54,7 +54,7 @@
       <p class="note">Open it on the iPhone that has Lavie. The page shows what to tap at each step.</p>
 
       <h2 id="sources">2. Choose what runs it</h2>
-      <p>Each source is an automation in the Shortcuts app: open Shortcuts, tap <strong>Automation</strong> at the bottom, then <strong>+</strong> (or <strong>New Automation</strong> the first time). Pick the trigger and choose <strong>Run Immediately</strong> so it never asks. Tap Next, then <strong>Log in Lavie</strong> under My Shortcuts. That's it.</p>
+      <p>On <strong>iOS 27</strong>, open <strong>Log in Lavie</strong> in Shortcuts, tap <strong>Edit</strong>, then <strong>Automation</strong> to add a trigger. On older versions, open <strong>Automation</strong> in Shortcuts, tap <strong>+</strong> (or <strong>New Automation</strong>), choose a trigger, then select <strong>Log in Lavie</strong>. Where <strong>Run Immediately</strong> is offered, select it.</p>
 
       <h3 id="wallet">Apple Pay (iOS 17 and later)</h3>
       <p>The amount and the shop, the moment you tap your iPhone or Apple Watch to pay. Only payments made by tapping; online purchases arrive through your bank's notifications instead.</p>
@@ -65,13 +65,15 @@
       </ol>
 
       <h3 id="notification">Bank or wallet app notifications (iOS 27 and later)</h3>
-      <p>Card purchases, PayNow, Alipay, WeChat Pay: whatever your apps already notify you about.</p>
+      <p>Use new purchase, payment or fare alerts from the apps you choose.</p>
       <ol>
-        <li>Shortcuts › Automation › + › <strong>Notification</strong>.</li>
-        <li>Choose the bank or wallet app. Leave the text filter empty. Choose <strong>Run Immediately</strong>, then Next.</li>
-        <li>Under My Shortcuts, pick <strong>Log in Lavie</strong>.</li>
+        <li>In Shortcuts, open <strong>Log in Lavie</strong> › <strong>Edit</strong> › <strong>Automation</strong> › <strong>Notification</strong>.</li>
+        <li>Choose the app that sends the notification. For example, a Citi card alert grouped under <strong>Wallet</strong> comes from Wallet, not the Citi banking app. You can add a filter for the notification's title, subtitle or message; leave it empty to receive all notifications from the selected apps.</li>
+        <li>Keep Lavie's <strong>Log a purchase from Shortcut Input</strong> action connected to the notification content. The properties offered by Shortcuts can vary: make sure the input contains the transaction text, including its amount, rather than only the app name or title. Avoid <strong>Ask Each Time</strong> for an automatic run.</li>
+        <li>In the shortcut editor, open <strong>Info</strong> › <strong>Privacy</strong> and enable <strong>Allow Running When Locked</strong>. If <strong>Run Immediately</strong> is shown for the trigger, select it. Save your changes.</li>
       </ol>
-      <p class="note">Repeat for each app you want Lavie to read. A notification that isn't about a purchase logs nothing.</p>
+      <p class="note">This starts with new notifications received after you enable the trigger. It does not read old notifications already in Notification Center. Adding more apps broadens which alerts can reach Lavie; it does not turn a balance or payment reminder into a purchase.</p>
+      <p class="note">Apple's instructions: <a href="https://support.apple.com/en-asia/guide/shortcuts/apdfbdbd7123/10.0/ios/27">add an automation and allow it to run when locked</a>. Some actions may also need permission to run automatically.</p>
 
       <h3 id="message">Bank text messages</h3>
       <p>The SMS alerts many banks send for every card charge.</p>
@@ -90,7 +92,9 @@
       </ol>
 
       <h2 id="check">3. Check what arrived</h2>
-      <p>If Lavie may send you notifications, each automatic entry sends a note: tap it to fix the amount or name, or press and hold it and tap <strong>Undo</strong>. Settings › Automatic logging shows how many purchases have arrived so far.</p>
+      <p>After the next alert, open Lavie › Settings › Automatic logging › <strong>Recent runs</strong>. Check the time and result against that alert. If there is no new run, the shortcut may not have reached Lavie, or it may have failed before a run could be recorded. This does not tell us whether the trigger is enabled. <strong>No text received</strong> means the call arrived without its notification text. A run with text can show whether reading or saving failed.</p>
+      <p>To check lock-screen behavior, use a new alert received while the phone is locked, then compare its time with Recent runs after unlocking. You can export a diagnostic log from that page; it contains run status and input length, never the notification text or transaction amounts.</p>
+      <p>If Lavie may send you notifications, each automatic entry sends a note: tap it to fix the amount or name, or press and hold it and tap <strong>Undo</strong>.</p>
       <p>If Lavie keeps misreading a bank's alerts, send us their wording (with the amounts changed) and we'll teach it. You can also turn on <strong>Ask AI to read it</strong> in Settings › Automatic logging for alerts Lavie can't read on its own: only that alert's text is sent, up to ten times a cycle on the free plan.</p>
 
       <h2 id="one-tap">One tap, no automation</h2>

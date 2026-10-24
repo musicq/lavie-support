@@ -8,6 +8,7 @@
 // bill whatever happens.
 
 import { setFreeImportsThisMonth } from "../../lib/apple.js";
+import { alertPrompt, alertTransactions } from "../../lib/alert.js";
 import { claimSingleUse, costMicro, overLimit, purposeOf, reply, session, today } from "../../lib/proxy.js";
 
 const MODEL = "deepseek-flash";
@@ -55,7 +56,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
         max_tokens: 16_000,
         response_format: { type: "json_object" },
         messages: [
-          { role: "system", content: systemPrompt(input) },
+          { role: "system", content: single ? alertPrompt(input) : systemPrompt(input) },
           { role: "user", content: user },
         ],
       }),
@@ -75,6 +76,11 @@ export async function onRequestPost({ request, env, waitUntil }) {
     return reply(502, { error: "unreadable" });
   }
   if (!Array.isArray(parsed?.transactions)) return reply(502, { error: "unreadable" });
+  if (single) {
+    const transactions = alertTransactions(parsed, input);
+    if (transactions === null) return reply(502, { error: "unreadable" });
+    return reply(200, { transactions });
+  }
   return reply(200, { transactions: parsed.transactions });
 }
 
