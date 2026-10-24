@@ -41,13 +41,13 @@
       <p>If you share a ledger, its entries, goals, holdings and settings are shared through Apple's CloudKit with the people you invite, and kept in the iCloud account of the person who shared it. Only invited people can open it, and each can either edit it or only view it, as the owner chooses. Invitations show only the name "Lavie", never the ledger's name or amounts. Removing someone stops their access but can't erase copies they already saved or exported. Your personal ledger is never shared.</p>
 
       <h2>Automatic logging</h2>
-      <p>If you set up automations in the Shortcuts app, they pass the text of a bank alert, text message or email, or the details of an Apple Pay purchase, to the App. The App reads it on your device and keeps only the entry it makes. If you turn on <strong>Ask AI to read it</strong>, an alert the App can't read on its own is sent to an AI service as described below.</p>
+      <p>If you set up automations in the Shortcuts app, they pass the text of a bank alert, text message or email, or the details of an Apple Pay purchase, to the App. Automatic logging requires Lavie Plus and your permission. When you enable <strong>Automatic logging with AI</strong>, every automatic input is sent to DeepSeek as described below. AI classifies it and extracts any completed transaction; there is no on-device notification parser. You can disable it in Settings. Earlier permission to send only unreadable alerts does not enable this broader processing.</p>
 
       <h2>AI features (optional)</h2>
       <p>Three features use an AI service. Each asks for your permission before anything is sent, and each sends only what it needs, through our server at lifebar.app, to an AI service provider:</p>
       <ul>
         <li><strong>Importing bank records:</strong> the text of the file you choose (read on your device), with your base currency, today's date and your category names, to find the transactions in it. Statement text may include descriptions, amounts, dates and details printed on it, such as your name or part of an account number.</li>
-        <li><strong>Ask AI to read it</strong> (automatic logging): the text of one alert the App couldn't read, with the same base currency, date and category names.</li>
+        <li><strong>Automatic logging with AI:</strong> each alert text or Wallet purchase details sent by your automation, with your base currency, date and category names. Notification text may include transaction amounts, merchant names and account or card details present in the notification.</li>
         <li><strong>Tidy with AI</strong> (Categories): the names you have recorded (such as "Spotify" or "GRAB* A-8XK2J"), how many entries each has, and your category names, to suggest cleaner names and better categories. Amounts, dates and notes are not sent. Nothing changes until you review and apply the suggestions.</li>
       </ul>
       <p>Your other Lavie data is never sent. Finding duplicates and applying the results happen on your device.</p>

@@ -8,12 +8,12 @@
 // bill whatever happens.
 
 import { setFreeImportsThisMonth } from "../../lib/apple.js";
-import { alertPrompt, alertTransactions } from "../../lib/alert.js";
+import { alertPrompt, alertTransactions, hasAlertAccess } from "../../lib/alert.js";
 import { claimSingleUse, costMicro, overLimit, purposeOf, reply, session, today } from "../../lib/proxy.js";
 
 const MODEL = "deepseek-flash";
 const MAX_TEXT = 12_000; // UTF-16 units; the app sends chunks of 9,000 characters.
-// One bank alert, SMS or card email: the app sends at most 4,000 characters of it.
+// One complete bank alert, SMS or card email; oversized inputs are refused, never truncated.
 const MAX_ALERT_TEXT = 6_000;
 const MAX_CATEGORIES = 80;
 
@@ -26,6 +26,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
   // alert one reads one short text, once. A statement goes through a statement session.
   const purpose = purposeOf(current);
   if (purpose === "tidy") return reply(401, { error: "session" });
+  if (purpose === "alert" && !hasAlertAccess(current.tier)) return reply(402, { error: "subscription_required" });
   if (current.spent_micro >= current.budget_micro) return reply(429, { error: "daily_limit" });
 
   let input;
@@ -79,7 +80,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
   if (single) {
     const transactions = alertTransactions(parsed, input);
     if (transactions === null) return reply(502, { error: "unreadable" });
-    return reply(200, { transactions });
+    return reply(200, { classification: parsed.classification, transactions });
   }
   return reply(200, { transactions: parsed.transactions });
 }

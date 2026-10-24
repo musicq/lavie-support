@@ -9,7 +9,7 @@ const input = {
   expense: [{ code: "food" }, { code: "custom.meals", name: "Meals out" }],
   income: [{ code: "salary" }, { code: "refund" }],
 };
-const purchase = { d: today, m: "Example Cafe", a: 12.34, c: "SGD", k: "e", cat: "food", src: input.text };
+const purchase = { d: today, m: "Example Cafe", a: 12.34, c: "SGD", k: "e", cat: "food" };
 const completed = (row = purchase) => ({ classification: "completed_transaction", transactions: [row] });
 
 function database(purpose) {
@@ -61,7 +61,7 @@ function endpoint(t, { purpose = "alert", answer = completed() } = {}) {
 
 test("an authenticated alert session uses the single-transaction prompt, ignoring a request purpose override", async (t) => {
   const api = endpoint(t);
-  assert.deepEqual(await api.run({ purpose: "statement" }), { status: 200, body: { transactions: [purchase] } });
+  assert.deepEqual(await api.run({ purpose: "statement" }), { status: 200, body: { classification: "completed_transaction", transactions: [purchase] } });
   const prompt = api.sent[0].messages[0].content;
   assert.match(prompt, /This is not a statement import/);
   assert.match(prompt, /payment reminders/i);
@@ -76,7 +76,7 @@ test("a reminder or uncertain classification cannot produce a transaction, even 
     await t.test(classification, async (t) => {
       const api = endpoint(t, { answer: { classification, transactions: [{ ...purchase, a: 1234.56, m: "Card payment due" }] } });
       assert.deepEqual(await api.run({ text: "Reminder: your card payment of SGD 1,234.56 is due next week." }),
-        { status: 200, body: { transactions: [] } });
+        { status: 200, body: { classification, transactions: [] } });
     });
   }
 });
@@ -86,7 +86,7 @@ test("valid purchases, refunds and income remain eligible and only transaction f
     { ...purchase, cat: "custom.meals" }, { ...purchase, cat: "other" }]) {
     await t.test(`${row.k}/${row.cat}`, async (t) => {
       const api = endpoint(t, { answer: completed({ ...row, explanation: "not part of the response contract" }) });
-      assert.deepEqual(await api.run(), { status: 200, body: { transactions: [row] } });
+      assert.deepEqual(await api.run(), { status: 200, body: { classification: "completed_transaction", transactions: [row] } });
     });
   }
 });
@@ -109,7 +109,6 @@ test("alerts reject missing classifications, multiple candidates, transfers and 
     ["missing merchant", completed({ ...purchase, m: " " })],
     ["wrong category kind", completed({ ...purchase, cat: "salary" })],
     ["unknown category", completed({ ...purchase, cat: "invented" })],
-    ["oversize source", completed({ ...purchase, src: "x".repeat(61) })],
   ];
   for (const [name, answer] of cases) {
     await t.test(name, async (t) => {
@@ -133,7 +132,7 @@ test("empty model results still work for non-transactions and statements", async
   for (const purpose of ["alert", "statement"]) {
     await t.test(purpose, async (t) => {
       const api = endpoint(t, { purpose, answer: { classification: "non_transaction", transactions: [] } });
-      assert.deepEqual(await api.run(), { status: 200, body: { transactions: [] } });
+      assert.deepEqual(await api.run(), { status: 200, body: purpose === "alert" ? { classification: "non_transaction", transactions: [] } : { transactions: [] } });
     });
   }
 });
@@ -165,4 +164,25 @@ test("single-use, session and purpose protections remain enforced", async (t) =>
     assert.equal((await api.run()).status, 401);
     assert.equal(api.sent.length, 0);
   });
+});
+
+
+test("free and stale free alert sessions cannot spend AI budget or call the model", async (t) => {
+  const api = endpoint(t);
+  api.DB.current.tier = "free";
+  assert.deepEqual(await api.run(), { status: 402, body: { error: "subscription_required" } });
+  assert.equal(api.sent.length, 0);
+  assert.equal(api.DB.current.chunks, 0);
+});
+
+test("active Plus trials can read automatic alerts", async (t) => {
+  const api = endpoint(t);
+  api.DB.current.tier = "trial";
+  assert.equal((await api.run()).status, 200);
+  assert.equal(api.sent.length, 1);
+});
+
+test("unused original-text fields do not reject a valid transaction or leave the endpoint", async (t) => {
+  const api = endpoint(t, { answer: completed({ ...purchase, src: "x".repeat(100) }) });
+  assert.deepEqual(await api.run(), { status: 200, body: { classification: "completed_transaction", transactions: [purchase] } });
 });

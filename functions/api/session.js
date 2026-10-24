@@ -7,11 +7,12 @@
 // - Without Plus, a statement import needs DeviceCheck: the app allows one per payday cycle,
 //   the server FREE_IMPORTS_PER_MONTH per device per calendar month (cycles and months don't
 //   line up), counted in DeviceCheck's two bits so a reinstall doesn't reset it. Reading one bank
-//   alert (purpose "alert") or tidying names and categories (purpose "tidy", /api/tidy) only spends
+//   alert (purpose "alert") requires verified Plus. Tidying names and categories (purpose "tidy", /api/tidy) only spends
 //   from the daily budget; the app keeps the free plan to one tidy.
 // - Each person has a daily AI budget; a session gets what is left of it (at least one statement).
 // ENFORCE_ATTEST and ENFORCE_DEVICE turn refusing on for each check; with "0" a failure is only logged.
 
+import { hasAlertAccess } from "../../lib/alert.js";
 import { freeImportsThisMonth, verifyAssertion, verifyTransaction } from "../../lib/apple.js";
 import { PRODUCTS, addressHash, appId, caps, enforced, json, overLimit, reply, today, token, useChallenge } from "../../lib/proxy.js";
 
@@ -96,6 +97,9 @@ export async function onRequestPost({ request, env }) {
       if (enforced(env, "device") && freeUsed >= Number(env.FREE_IMPORTS_PER_MONTH || 2)) return finish(402, { error: "trial_used" }, checks);
     }
   }
+
+  // Automatic logging requires an active verified Plus subscription, including its trial.
+  if (purpose === "alert" && !hasAlertAccess(tier)) return finish(402, { error: "subscription_required" }, { ...checks, tier, purpose });
 
   // 3. What they may spend today.
   const cap = caps(env)[tier];

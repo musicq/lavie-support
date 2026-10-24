@@ -42,10 +42,11 @@
       <p class="lede">Pay with Apple Pay or get a bank alert, and the purchase lands in Lavie by itself, filed under the name's category.</p>
 
       <div class="summary">
-        <p>Add the Lavie shortcut, then choose what runs it in the Shortcuts app. Downloading it alone does not turn on automatic logging. Lavie reads the alerts that your automation passes to it.</p>
+        <p>Add the Lavie shortcut, then choose what runs it in the Shortcuts app. Downloading it alone does not turn on automatic logging. With Lavie Plus (including its trial), AI reads every alert your automation passes to it. An internet connection is required.</p>
       </div>
 
-      <h2 id="shortcut">1. Add the Lavie shortcut</h2>
+      <h2 id="shortcut">1. Enable AI and add the shortcut</h2>
+      <p>Update Lavie, then open Settings › Automatic logging and turn on <strong>Automatic logging with AI</strong>. Read and accept the permission to send every automatic alert to DeepSeek. If you used the earlier AI fallback, turn this on once after updating: that earlier permission does not cover all alerts. An active Lavie Plus subscription or trial is required.</p>
       <div class="get">
         <span class="tile" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 13l15 15"/><path d="M8 3.5v5M5.5 6h5"/><path d="M17 4v3M15.5 5.5h3"/></svg></span>
         <div><b>Log in Lavie</b><p>The only shortcut you need. Every source below runs it.</p></div>
@@ -95,7 +96,7 @@
       <p>After the next alert, open Lavie › Settings › Automatic logging › <strong>Recent runs</strong>. Check the time and result against that alert. If there is no new run, the shortcut may not have reached Lavie, or it may have failed before a run could be recorded. This does not tell us whether the trigger is enabled. <strong>No text received</strong> means the call arrived without its notification text. A run with text can show whether reading or saving failed.</p>
       <p>To check lock-screen behavior, use a new alert received while the phone is locked, then compare its time with Recent runs after unlocking. You can export a diagnostic log from that page; it contains run status and input length, never the notification text or transaction amounts.</p>
       <p>If Lavie may send you notifications, each automatic entry sends a note: tap it to fix the amount or name, or press and hold it and tap <strong>Undo</strong>.</p>
-      <p>If Lavie keeps misreading a bank's alerts, send us their wording (with the amounts changed) and we'll teach it. You can also turn on <strong>Ask AI to read it</strong> in Settings › Automatic logging for alerts Lavie can't read on its own: only that alert's text is sent, up to ten times a cycle on the free plan.</p>
+      <p>AI decides whether each alert describes one completed expense or receipt. Promotions, payment reminders, credit card repayments and uncertain results should be skipped. If a result is wrong, undo it and send us the wording with private details removed. Network or subscription failures do not fall back to local parsing.</p>
 
       <h2 id="one-tap">One tap, no automation</h2>
       <h3 id="control-center">Control Center and Lock Screen</h3>
@@ -104,7 +105,7 @@
       <p>Settings › Action Button › <strong>Controls</strong> › search for Lavie › <strong>Log spending</strong>. Press the button and Lavie's keypad opens: type the amount, done.</p>
 
       <h2>Privacy</h2>
-      <p>Alerts are read on your iPhone. Nothing leaves it unless you turn on <strong>Ask AI to read it</strong>, and then only the text of an alert Lavie couldn't read. See the <a href="/privacy">privacy policy</a>.</p>
+      <p>When you enable <strong>Automatic logging with AI</strong>, each alert or Wallet purchase your automations send goes to DeepSeek with your base currency, date and category names. Your ledger is not sent. You can switch this off at any time. Manual entry, the Control Center + button and the Action button stay free. See the <a href="/privacy">privacy policy</a>.</p>
 
       <div class="card">
         <h2>Stuck?</h2>
